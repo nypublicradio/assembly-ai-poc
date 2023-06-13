@@ -1,0 +1,71 @@
+$maxWidth: 1440px;
+$contentWidth: 1200px;
+$thinContentWidth: 768px;
+$headerHeight: 70px;
+$playerHeight: 100px;
+$toolsBreakPoint: 472px;
+
+:root {
+  --header-height: #{$headerHeight};
+  --player-height: #{$playerHeight};
+  --header-z-index: 900;
+  --line-clamp: 3;
+}
+
+body {
+  background-color: var(--darkblue) !important;
+}
+
+main {
+  margin-top: 80px; // account for the sticky header height
+}
+
+section {
+  width: 100%;
+  max-width: $contentWidth;
+  padding: spacingXY(3, 4);
+  margin: auto;
+  @include media('<lg') {
+    width: 100%;
+  }
+  &.max-width {
+    max-width: $maxWidth;
+  }
+  &.full-width {
+    max-width: 100%;
+  }
+}
+
+a {
+  text-decoration: none;
+  transition: var(--transition-duration);
+  opacity: 1;
+  &:hover {
+    opacity: 0.75;
+  }
+  &.plain {
+    border: none !important;
+    padding: 0 !important;
+  }
+}
+
+.col-fixed {
+  &.ad300 {
+    max-width: 316px;
+    width: 100%;
+  }
+}
+
+// TO DO move to DS extensions file
+.p-button .p-button-label {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: var(--font-size-7) !important;
+}
+
+.flexible-link {
+  &.raw.no-border {
+    border: none !important;
+  }
+}
