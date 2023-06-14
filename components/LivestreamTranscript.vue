@@ -30,29 +30,34 @@ if (error) {
 <template>
   <div class="livestream-transcript px-6 pb-4">
     <h2 class="mb-3">What You Missed</h2>
-    <p class="mb-5">
+    <p class="mb-2">
       Here is the transcript for the last {{ secondsLapsed }} seconds of our
       live broadcast:
     </p>
-    <div
+    <template
       v-for="(item, index) in transcripts.slice().reverse()"
       :key="index"
-      class="flex mb-3"
     >
-      <span class="timestamp mr-3">
+      <div v-if="index % 3 === 0" class="mb-4" />
+      <span v-if="index % 3 === 0" class="timestamp mr-3">
         {{ toMinutesAndSeconds(item.transcript.created) }}
       </span>
-      <p>{{ item.transcript.text }}</p>
-    </div>
+      {{ item.transcript.text }}
+    </template>
   </div>
 </template>
 
 <style lang="scss">
+.livestream-transcript {
+  line-height: 2.25rem;
+}
 .livestream-transcript .timestamp {
+  display: inline-block;
   border: 1px solid var(--white);
   padding: 2px 8px 6px;
   border-radius: 6px;
   font-size: var(--font-size-5);
+  line-height: var(--font-size-8);
   height: 32px;
 }
 </style>

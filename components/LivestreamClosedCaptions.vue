@@ -23,8 +23,8 @@ const data = supabase
       filter: `station_id=eq.${config.stationId}`
     },
     payload => {
-      if (data.new?.current_partial_transcript) {
-        captions.value = data.new.current_partial_transcript
+      if (payload.new?.current_partial_transcript) {
+        captions.value = payload.new.current_partial_transcript
       }
     }
   )

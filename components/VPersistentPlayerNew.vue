@@ -595,6 +595,9 @@ $container-breakpoint-md: useBreakpointOrFallback('md', 768px);
     top: 0;
     height: 100%;
   }
+  .p-button:focus {
+    box-shadow: none !important;
+  }
   .maximize-btn-holder {
     position: absolute;
     display: block;
