@@ -15,6 +15,33 @@ export default {
       ]
     }
   },
+  modules: [
+    '@nuxt/image'
+  ],
+  image: {
+    //dir: 'assets-shared/images',
+    wagtail: {
+      baseURL: "https://cms.demo.nypr.digital/images/",
+      screens: {
+        xs: 375,
+        sm: 576,
+        md: 768,
+        lg: 992,
+        xl: 1280,
+        xxl: 1366,
+        '2xl': 1920
+      },
+      presets: {
+        avatar: {
+          modifiers: {
+            format: 'jpg',
+            width: 50,
+            height: 50
+          }
+        }
+      }
+    },
+  },
   css: [
     '@nypublicradio/nypr-design-system-vue3/src/assets/themes/wnyc/fonts/fonts.css',
     'primeflex/primeflex.css',
@@ -60,12 +87,11 @@ export default {
   },
   runtimeConfig: {
     public: {
-      // SENTRY_DSN: process.env['SENTRY_DSN'],
       ENV: process.env['ENV'] || 'demo',
-      // HTL_CSS: process.env['HTL_CSS'] || 'https://htlbid.com/stage/v3/wnyc.com/htlbid.css',
-      // HTL_JS: process.env['HTL_JS'] || 'https://htlbid.com/stage/v3/wnyc.com/htlbid.js',
-      // HTL_IS_TESTING: process.env['HTL_IS_TESTING'] || 'yes',
       LIVESTREAM_URL: process.env['LIVESTREAM_URL'] || 'https://api.demo.nypr.digital/api/v4/whats_on/',
+      stationId: process.env.NUXT_ENV_STATION_ID,
+      supabaseUrl: process.env.NUXT_ENV_SUPABASE_URL,
+      supabaseKey: process.env.NUXT_ENV_SUPABASE_KEY,
     }
   }
 }

@@ -1,12 +1,11 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
-import VPersistentPlayer from '@nypublicradio/nypr-design-system-vue3/v2/src/components/VPersistentPlayer.vue'
 import {
   useCurrentEpisode,
   useIsEpisodePlaying,
   useTogglePlayTrigger,
   useIsPlayerMinimized,
-  audioPlayerHeight,
+  audioPlayerHeight
 } from '~/composables/states'
 // had to install howler.js locally and add this import to stop it from breaking the build
 import { Howl, Howler } from 'howler'
@@ -20,7 +19,7 @@ const showPlayer = ref(false)
 const playerRef = ref()
 const playerHeight = ref(audioPlayerHeight + 'px')
 /*function that updated the global useIsEpisodePlaying */
-const updateUseIsEpisodePlaying = (e) => {
+const updateUseIsEpisodePlaying = e => {
   // $analytics.sendEvent('click_tracking', {
   //   event_category: 'Click Tracking - Audio Player play toggle button',
   //   component: 'Audio Player',
@@ -29,7 +28,7 @@ const updateUseIsEpisodePlaying = (e) => {
   isEpisodePlaying.value = e
 }
 /*function that updated the global useIsPlayerMinimized */
-const updateUseIsPlayerMinimized = (e) => {
+const updateUseIsPlayerMinimized = e => {
   // $analytics.sendEvent('click_tracking', {
   //   event_category: 'Click Tracking - Audio Player minimized',
   //   component: 'Audio Player',
@@ -44,12 +43,12 @@ const currentEpisodeData = computed(
 )
 const currentEpisodeImage = computed(
   () =>
-    currentEpisode.value?.included.find((include) => include.type === 'image')
+    currentEpisode.value?.included.find(include => include.type === 'image')
       .attributes
 )
 const currentEpisodeShow = computed(
   () =>
-    currentEpisode.value?.included.find((include) => include.type === 'show')
+    currentEpisode.value?.included.find(include => include.type === 'show')
       .attributes
 )
 
@@ -85,7 +84,7 @@ const pingEvent = () => {
   //   event_label: `${station} - ${title}`,
   // })
 }
-watch(isEpisodePlaying, (e) => {
+watch(isEpisodePlaying, e => {
   if (isInitialPing) {
     pingEvent()
     isInitialPing = false
@@ -104,20 +103,21 @@ watch(isEpisodePlaying, (e) => {
 <template>
   <div>
     <transition name="player">
-      <v-persistent-player
+      <v-persistent-player-new
+        v-if="showPlayer"
         data-style-mode="dark"
         ref="playerRef"
-        v-if="showPlayer"
         :auto-play="true"
         :livestream="true"
         :title="currentEpisodeShow?.title"
         :title-link="currentEpisodeShow?.url"
-        :station="currentEpisodeData?.name"
         :description="currentEpisodeShow?.featured?.title"
-        :image="currentEpisodeImage?.url || currentEpisodeData?.['image-logo']"
+        :station="currentEpisodeData?.name"
+        image="329534"
         :file="currentEpisodeData?.['mobile-mp3']"
         :show-skip="false"
-        :can-minimize="true"
+        :can-minimize="false"
+        :can-expand="true"
         :showTrack="false"
         @togglePlay="updateUseIsEpisodePlaying"
         @is-minimized="updateUseIsPlayerMinimized"
