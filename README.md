@@ -1,4 +1,4 @@
-# WNYC Web Client
+# Assembly AI POC (WNYC 3 Clone)
 
 ## Made with Nuxt 3 & Vue 3
 
