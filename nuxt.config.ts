@@ -92,6 +92,7 @@ export default {
       stationId: process.env.NUXT_ENV_STATION_ID,
       supabaseUrl: process.env.NUXT_ENV_SUPABASE_URL,
       supabaseKey: process.env.NUXT_ENV_SUPABASE_KEY,
+      openAiKey: process.env.NUXT_ENV_OPENAI_KEY,
     }
   }
 }

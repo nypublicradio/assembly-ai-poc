@@ -12,6 +12,8 @@ export function formatTime(date: any) {
 // format timestamp to hours, minutes and seconds
 export function toMinutesAndSeconds( timestamp: any ) {
   const dateObject = new Date(timestamp)
+  // subtract 4 hours from timestamp to get EST time
+  dateObject.setHours(dateObject.getHours() - 4)
   const hours = dateObject.getHours()
   const hoursIn12HourFormat = hours % 12 || 12
   const minutes = dateObject.getMinutes()
