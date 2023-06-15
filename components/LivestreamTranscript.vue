@@ -3,10 +3,16 @@ import { Configuration, OpenAIApi } from 'openai'
 import { toMinutesAndSeconds } from '~/utilities/helpers'
 import { createClient } from '@supabase/supabase-js'
 
+const props = defineProps({
+  title: {
+    type: String,
+    default: null
+  }
+})
+
 const config = useRuntimeConfig()
 
 const loading = ref(true)
-const secondsLapsed = ref(null)
 const transcripts = ref(null)
 const transcriptSummary = ref(null)
 
@@ -22,12 +28,6 @@ onMounted(async () => {
 
   if (data) {
     transcripts.value = data
-
-    // get the time difference in seconds between the first and the last transcript
-    secondsLapsed.value =
-      new Date(data[0].transcript.created) -
-      new Date(data[data.length - 1].transcript.created)
-    secondsLapsed.value = parseInt(secondsLapsed.value / 1000 / 60)
 
     // loop through the transcripts and create a string of the text
     let transcriptText = ''
@@ -62,7 +62,9 @@ onMounted(async () => {
 
 <template>
   <div class="livestream-transcript px-6 pb-4">
-    <h2 class="mb-2">What You Missed</h2>
+    <h2 class="mb-2">
+      What You Missed On <em>{{ title }}</em>
+    </h2>
     <template v-if="loading">
       <div class="lds-ellipsis">
         <div></div>
@@ -75,8 +77,7 @@ onMounted(async () => {
       <p v-html="transcriptSummary" />
       <hr class="my-6" />
       <p class="mb-2">
-        Here is the transcript for the last {{ secondsLapsed }} seconds of our
-        live broadcast:
+        Here is the transcript for the last few minutes of our live broadcast:
       </p>
       <template
         v-for="(item, index) in transcripts.slice().reverse()"

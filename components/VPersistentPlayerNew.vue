@@ -549,7 +549,7 @@ defineExpose({
             </slot>
           </div>
           <slot name="expanded-content">
-            <livestream-transcript />
+            <livestream-transcript :title="title" />
           </slot>
         </div>
       </div>
